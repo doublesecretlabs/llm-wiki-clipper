@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>LLM Wiki Clipper — Options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <h1>LLM Wiki Clipper Options</h1>
+
+    <div class="field">
+      <label for="folder-id">Google Drive Folder</label>
+      <div class="folder-row">
+        <input type="text" id="folder-id" placeholder="e.g. 1aBcDeFgHiJkLmNoPqRsTuVwXyZ" readonly>
+        <button type="button" id="browse-btn">Browse</button>
+      </div>
+      <p id="folder-name" class="hint"></p>
+
+      <div id="picker" class="picker" style="display:none;">
+        <div class="picker-header">
+          <button type="button" id="picker-back" disabled>&larr;</button>
+          <span id="picker-path">My Drive</span>
+          <button type="button" id="picker-close">&times;</button>
+        </div>
+        <div id="picker-list" class="picker-list">
+          <p class="picker-loading">Loading...</p>
+        </div>
+        <div class="picker-footer">
+          <button type="button" id="picker-select">Select this folder</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="default-tags">Default Tags</label>
+      <input type="text" id="default-tags" placeholder="web_clip, research">
+      <p class="hint">Comma-separated tags added to every clip's frontmatter.</p>
+    </div>
+
+    <button id="save-btn">Save Settings</button>
+
+    <div id="status" style="display:none;"></div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

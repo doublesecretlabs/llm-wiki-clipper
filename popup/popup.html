@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>LLM Wiki Clipper</h1>
+
+    <div id="status-not-configured" class="status warning" style="display:none;">
+      No Drive folder configured.
+      <a href="#" id="open-options">Open Options</a>
+    </div>
+
+    <div id="content-area">
+      <label for="title-input">Title</label>
+      <input type="text" id="title-input" placeholder="Page title...">
+
+      <label for="tags-input">Tags</label>
+      <div class="tags-container">
+        <div id="tags-list" class="tags-list"></div>
+        <input type="text" id="tags-input" placeholder="Add tag and press Enter...">
+      </div>
+
+      <label for="preview">Preview</label>
+      <textarea id="preview" readonly rows="6" placeholder="Extracting content..."></textarea>
+
+      <div id="image-info" class="image-info" style="display:none;"></div>
+
+      <button id="clip-btn" disabled>Clip to Drive</button>
+    </div>
+
+    <div id="status-area" style="display:none;">
+      <div id="status-message"></div>
+      <a id="drive-link" href="#" target="_blank" style="display:none;">Open in Drive</a>
+    </div>
+
+    <div id="loading" style="display:none;">
+      <div class="spinner"></div>
+      <span id="loading-text">Clipping...</span>
+    </div>
+
+    <div id="history-section">
+      <h2>Recent Clips</h2>
+      <div id="history-list" class="history-list">
+        <div class="history-empty">No clips yet.</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
