@@ -10,7 +10,7 @@
   <img src="https://img.shields.io/github/license/doublesecretlabs/llm-wiki-clipper" alt="License">
 </p>
 
-**A Chrome extension that clips web pages to clean markdown and saves them directly to Google Drive — built for [Andrej Karpathy's LLM Wiki](https://github.com/karpathy/llm-wiki) framework.**
+**A Chrome extension that clips web pages to clean markdown and saves them directly to Google Drive — built for [Andrej Karpathy's LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) framework.**
 
 > No local sync. No app lock-in. Just clip and go — your LLM Wiki raw layer lives in Google Drive, accessible from any machine.
 
