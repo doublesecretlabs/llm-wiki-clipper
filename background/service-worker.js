@@ -209,7 +209,8 @@ async function handleClip({ title, markdown, url, clippedDate, tags = [], imageU
     uploadedImages.length > 0 ? `images: ${uploadedImages.length}` : null,
     "---",
     "",
-  ].filter(Boolean).join("\n");
+    "",
+  ].filter(x => x !== null).join("\n");
 
   const fullMarkdown = frontmatter + updatedMarkdown;
 
