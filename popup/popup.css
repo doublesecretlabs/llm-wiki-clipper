@@ -141,6 +141,23 @@ textarea {
   border: 1px solid #d0e3f7;
 }
 
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #555;
+  font-weight: 400;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-row input[type="checkbox"] {
+  margin: 0;
+  cursor: pointer;
+}
+
 button {
   width: 100%;
   padding: 10px;

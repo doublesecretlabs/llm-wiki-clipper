@@ -11,6 +11,9 @@ const loadingText = document.getElementById("loading-text");
 const notConfigured = document.getElementById("status-not-configured");
 const openOptions = document.getElementById("open-options");
 const imageInfo = document.getElementById("image-info");
+const includeImagesRow = document.getElementById("include-images-row");
+const includeImagesCheckbox = document.getElementById("include-images");
+const includeImagesLabel = document.getElementById("include-images-label");
 const historyList = document.getElementById("history-list");
 
 let extractedData = null;
@@ -114,10 +117,17 @@ extractFromTab()
       ? data.markdown.slice(0, 500) + (data.markdown.length > 500 ? "\n..." : "")
       : "(no content extracted)";
 
-    // Show image count
+    // Show image count + include-images checkbox (sticky)
     if (data.imageUrls && data.imageUrls.length > 0) {
-      imageInfo.textContent = `${data.imageUrls.length} image(s) found — will upload to Drive`;
+      const count = data.imageUrls.length;
+      imageInfo.textContent = `${count} image(s) found on page`;
       imageInfo.style.display = "block";
+
+      includeImagesLabel.textContent = `Include ${count} image${count === 1 ? "" : "s"}`;
+      chrome.storage.local.get({ includeImagesSticky: true }, (state) => {
+        includeImagesCheckbox.checked = state.includeImagesSticky;
+      });
+      includeImagesRow.style.display = "flex";
     }
 
     clipBtn.disabled = false;
@@ -139,10 +149,16 @@ clipBtn.addEventListener("click", async () => {
   statusArea.style.display = "none";
 
   const hasImages = extractedData.imageUrls && extractedData.imageUrls.length > 0;
-  if (hasImages) {
+  const includeImages = includeImagesCheckbox.checked;
+  if (hasImages && includeImages) {
     loadingText.textContent = "Uploading images & clipping...";
   } else {
     loadingText.textContent = "Clipping...";
+  }
+
+  // Persist sticky choice for next time
+  if (hasImages) {
+    chrome.storage.local.set({ includeImagesSticky: includeImages });
   }
 
   const today = new Date().toISOString().slice(0, 10);
@@ -156,7 +172,8 @@ clipBtn.addEventListener("click", async () => {
         url: extractedData.url,
         clippedDate: today,
         tags: userTags,
-        imageUrls: extractedData.imageUrls || []
+        imageUrls: extractedData.imageUrls || [],
+        includeImages: includeImages
       }
     },
     (response) => {

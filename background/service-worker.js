@@ -158,7 +158,7 @@ async function addToClipHistory(entry) {
 }
 
 // --- Main clip handler ---
-async function handleClip({ title, markdown, url, clippedDate, tags = [], imageUrls = [] }) {
+async function handleClip({ title, markdown, url, clippedDate, tags = [], imageUrls = [], includeImages }) {
   const token = await getAuthToken();
   const settings = await getSettings();
 
@@ -180,10 +180,11 @@ async function handleClip({ title, markdown, url, clippedDate, tags = [], imageU
     : [];
   const allTags = [...new Set([...defaultTags, ...tags])];
 
-  // Upload images if enabled and present
+  // Upload images if enabled and present (per-clip override falls back to global setting)
+  const shouldUploadImages = includeImages !== undefined ? includeImages : settings.includeImages;
   let updatedMarkdown = markdown;
   const uploadedImages = [];
-  if (settings.includeImages && imageUrls.length > 0) {
+  if (shouldUploadImages && imageUrls.length > 0) {
     const imageFolder = await getOrCreateImageFolder(settings.folderId, token);
     for (const imgUrl of imageUrls) {
       try {
